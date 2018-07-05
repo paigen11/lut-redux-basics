@@ -33,8 +33,8 @@ const defaultState = {
 // (state = default state...) if state is passed into greeting use that initial value
 const greeting = (state = defaultState, action) => {
     switch(action.type){
-        case 'GREET_ME':
-            return { ...state, welcome: 'Hello Paige' };
+        case 'GREET_NAME':
+            return { ...state, welcome: `Hello ${action.name}` };
         case 'GREET_WORLD':
             return { ...state, welcome: 'Hello world'};
         default:
@@ -53,9 +53,22 @@ const store = createStore(greeting);
 
 console.log(store.getState());
 
+const result = 'something coming back from an api';
+const name = 'Paige';
+
 // the action (simply an object) is 'dispatched' to create the new state in redux
+// es6 omits the key / value since they're the same thing
 store.dispatch({
-    type: 'GREET_ME'
+    type: 'GREET_NAME',
+    name
+});
+
+console.log(store.getState());
+
+// you can attach as many things to dispatch as you want
+store.dispatch({
+    type: 'GREET_NAME',
+    name: 'Sean'
 });
 
 console.log(store.getState());
